@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_perguntas/questao.dart';
+import 'package:projeto_perguntas/resposta.dart';
 
-void main(List<String> args) {
-  runApp(PerguntaApp());
-}
+void main() => runApp(const PerguntaApp());
 
-class _PerguntaAppState extends State<PerguntaApp> {
+class PerguntaAppState extends State<PerguntaApp> {
   var perguntaSelecionada = 0;
 
   void responder() {
@@ -16,7 +16,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> perguntas = [
+    final perguntas = [
       'Qual a sua cor favorita?',
       'Qual o seu animal favorito?',
       'Qual time de futebol você torce?',
@@ -25,28 +25,15 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('Perguntas')),
+        appBar: AppBar(
+          title: const Text('Perguntas')
+          ),
         body: Column(
           children: [
-            Text(perguntas[perguntaSelecionada]),
-            ElevatedButton(
-              child: const Text('Resposta 1'),
-              onPressed: () {
-                responder();
-              },
-            ),
-            ElevatedButton(
-              child: const Text('Resposta 2'),
-              onPressed: () {
-                responder();
-              },
-            ),
-            ElevatedButton(
-              child: const Text('Resposta 3'),
-              onPressed: () {
-                responder();
-              },
-            ),
+            Questao(perguntas[perguntaSelecionada]),
+            Resposta("Resposta 1"),
+            Resposta("Resposta 2"),
+            Resposta("Resposta 3"),
           ],
         ),
       ),
@@ -58,5 +45,7 @@ class PerguntaApp extends StatefulWidget {
   const PerguntaApp({super.key});
 
   @override
-  State<PerguntaApp> createState() => _PerguntaAppState();
+  PerguntaAppState createState() {
+    return PerguntaAppState();
+  }
 }
