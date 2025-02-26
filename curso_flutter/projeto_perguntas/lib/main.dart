@@ -11,7 +11,6 @@ class PerguntaAppState extends State<PerguntaApp> {
     setState(() {
       perguntaSelecionada++;
     });
-    print(perguntaSelecionada);
   }
 
   @override
@@ -25,15 +24,13 @@ class PerguntaAppState extends State<PerguntaApp> {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Perguntas')
-          ),
+        appBar: AppBar(title: const Text('Perguntas')),
         body: Column(
           children: [
             Questao(perguntas[perguntaSelecionada]),
-            Resposta("Resposta 1"),
-            Resposta("Resposta 2"),
-            Resposta("Resposta 3"),
+            Resposta("Resposta1", responder),
+            Resposta("Resposta2", responder),
+            Resposta("Resposta3", responder),
           ],
         ),
       ),
