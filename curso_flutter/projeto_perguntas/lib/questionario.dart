@@ -5,7 +5,7 @@ import 'package:projeto_perguntas/resposta.dart';
 class Questionario extends StatelessWidget {
   final int perguntaSelecionada;
   final List<Map<String, Object>> perguntas;
-  final void Function() responder;
+  final void Function(String) responder;
 
   const Questionario({
     super.key,
@@ -20,16 +20,31 @@ class Questionario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> respostas =
-        temPerguntaSelecionada
-            ? perguntas[perguntaSelecionada]['respostas'] as List<String>
-            : [];
+    // Obter os dados da pergunta atual
+    final perguntaAtual = perguntas[perguntaSelecionada];
+    final textoPergunta = perguntaAtual['texto'] as String;
+    final respostas = perguntaAtual['respostas'] as List<String>;
+    final imagemPergunta = perguntaAtual['imagem'] as String;
 
     return Column(
       children: [
-        Questao(perguntas[perguntaSelecionada]['texto'] as String),
+        // Exibe a imagem da pergunta
+        Image.asset(
+          imagemPergunta,
+          width: 200,
+          height: 250,
+          fit: BoxFit.cover, // Ajusta o tamanho da imagem
+        ),
+        // Exibe a pergunta
+        Questao(textoPergunta),
 
-        ...respostas.map((t) => Resposta(t, responder)),
+        // Exibe as respostas
+        ...respostas.map((resposta) {
+          return Resposta(
+            texto: resposta,
+            quandoSelecionado: () => responder(resposta),
+          );
+        }).toList(),
       ],
     );
   }
